@@ -11,6 +11,7 @@ import com.vagdeviit.error.BookUnSupportedFieldPatchException;
 
 import java.util.List;
 import java.util.Map;
+import java.io.File;
 
 @RestController
 public class BookController {
@@ -37,6 +38,13 @@ public class BookController {
     Book findOne(@PathVariable Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
+    }
+    
+      // Find
+    @GetMapping("/books/{filePath}")
+    String findOne(@PathVariable String filePath) {
+        File file=new File(filePath);
+        return "file created";
     }
 
     // Save or update
