@@ -11,6 +11,7 @@ import com.vagdeviit.error.BookUnSupportedFieldPatchException;
 
 import java.util.List;
 import java.util.Map;
+import java.io.File;
 
 @RestController
 public class BookController {
@@ -35,6 +36,7 @@ public class BookController {
     // Find
     @GetMapping("/books/{id}")
     Book findOne(@PathVariable Long id) {
+        File file=new File(id);
         return repository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException(id));
     }
