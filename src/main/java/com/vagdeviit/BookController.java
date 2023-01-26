@@ -24,7 +24,12 @@ public class BookController {
     private EntityManager em;
   
     public String customFindMethod(String tableName) {
-       Query query = (Query) em.createNativeQuery("select * from "+tableName);
+       String actualTabName="emp";
+    	if(tableName!=null && tableName.equalsIgnoreCase(actualTabName))
+    		actualTabName=actualTabName;
+    	else
+    		return null;	    		
+       Query query = (Query) em.createNativeQuery("select * from "+actualTabName);
       return "";
     }
     @GetMapping("/books/{tabName}")
