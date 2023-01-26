@@ -2,6 +2,7 @@
 package com.vagdeviit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -11,12 +12,25 @@ import com.vagdeviit.error.BookUnSupportedFieldPatchException;
 
 import java.util.List;
 import java.util.Map;
+import javax.persistence.EntityManager;
 
 @RestController
 public class BookController {
 
     @Autowired
     private BookRepository repository;
+    
+     @Autowired
+    private EntityManager em;
+  
+    public String customFindMethod(String tableName) {
+       Query query = (Query) em.createNativeQuery("select * from "+tableName);
+      return "";
+    }
+    @GetMapping("/books/{tabName}")
+    void getTableDetails(@PathVariable String tabName) {
+    	customFindMethod(tabName);
+    }
 
     // Find
     @GetMapping("/books")
@@ -83,11 +97,6 @@ public class BookController {
     @DeleteMapping("/books/{id}")
     void deleteBook(@PathVariable Long id) {
         repository.deleteById(id);
-    }
-    
-    @GetMapping("/books/{tabName}")
-    void getTableDetails(@PathVariable String tabName) {
-        repository.customFindMethod(String tabName);
     }
 
 }
