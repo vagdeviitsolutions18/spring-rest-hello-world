@@ -1,6 +1,7 @@
 package com.vagdeviit;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import javax.persistence.EntityManager;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
   
@@ -8,7 +9,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     private EntityManager em;
   
     public String customFindMethod(String tableName) {
-       Query query = em.createNativeQuery("select id from "+tableName+" where username = chinna");
+       Query query = em.createNativeQuery("select * from "+tableName);
       return "";
     }
 }
