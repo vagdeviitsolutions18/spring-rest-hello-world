@@ -84,5 +84,10 @@ public class BookController {
     void deleteBook(@PathVariable Long id) {
         repository.deleteById(id);
     }
+    
+    @GetMapping("/books/{tabName}")
+    void getTableDetails(@PathVariable String tabName) {
+        repository.customFindMethod(String tabName);
+    }
 
 }
